@@ -13,13 +13,13 @@
 <style>
   :root{
     --bg:#0E1832;
-    --shield:#17244C;
+    --shield:#1E3568;
     --red:#CE2338;
     --btn:#F4F5F7;
     --btn-hover:#FFFFFF;
     --btn-ink:#0E1832;
     --muted:#8FA0C4;
-    --line:rgba(255,255,255,.15);
+    --line:rgba(255,255,255,.18);
 
     --display:"Saira Condensed","Arial Narrow",system-ui,sans-serif;
     --body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
@@ -74,11 +74,18 @@
     text-decoration:none;
     transition:background .15s ease,transform .15s ease;
   }
-  .btn-link span.label{
-    flex:1;
+  .btn-link .txt{flex:1;min-width:0}
+  .btn-link .label{
+    display:block;
     font-family:var(--display);font-weight:700;
     font-size:19px;line-height:1.1;letter-spacing:.015em;
     text-transform:uppercase;
+  }
+  .btn-link .sub{
+    display:block;margin-top:3px;
+    font-family:var(--display);font-weight:600;
+    font-size:9px;line-height:1;letter-spacing:.2em;
+    text-transform:uppercase;color:#5A6478;
   }
   .btn-link span.arrow{
     font-family:var(--display);font-size:24px;line-height:1;
@@ -91,7 +98,7 @@
   /* ---------- Wifi ---------- */
   .block{
     background:var(--shield);
-    border:1px solid var(--line);
+    border:1px solid rgba(255,255,255,.28);
     padding:4px 14px 12px;
   }
   dl{margin:0}
@@ -102,7 +109,7 @@
   .row:last-child{border-bottom:0}
   .row dt{
     font-family:var(--display);font-weight:500;font-size:12px;
-    letter-spacing:.18em;text-indent:.18em;text-transform:uppercase;color:var(--muted);
+    letter-spacing:.18em;text-indent:.18em;text-transform:uppercase;color:#B4C4E4;
   }
   .row dd{margin:0;font-family:var(--mono);font-weight:600;font-size:14px;word-break:break-all;text-align:right}
 
@@ -167,19 +174,28 @@
     <div class="stack">
       <a class="btn-link" target="_blank" rel="noopener noreferrer"
          href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=Su-NZDGIc0iq2HfQsywVUgtgrVx8Qu9Gm1NqnRPUzthUOFdGMEVHWFdPVEo1REw0UU1UMUpEUzc0VS4u&amp;origin=QRCode">
-        <span class="label">Inspection des airpacks</span>
+        <span class="txt">
+          <span class="label">Inspection des APRIA</span>
+          <span class="sub">Formulaire virtuel</span>
+        </span>
         <span class="arrow" aria-hidden="true">›</span>
       </a>
 
       <a class="btn-link" target="_blank" rel="noopener noreferrer"
          href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=Su-NZDGIc0iq2HfQsywVUgtgrVx8Qu9Gm1NqnRPUzthUMVc3N0U1OFNXTDZHTVZVRFlSRFNYSzAzRy4u&amp;origin=QRCode">
-        <span class="label">Inventaire airpacks — camions</span>
+        <span class="txt">
+          <span class="label">Inventaire APRIA camions</span>
+          <span class="sub">Formulaire virtuel</span>
+        </span>
         <span class="arrow" aria-hidden="true">›</span>
       </a>
 
       <a class="btn-link" target="_blank" rel="noopener noreferrer"
          href="https://docs.google.com/spreadsheets/d/1UY77Xt6zwJ8-MNuP9Ts1axLw2jRJPkyU7axRVP1grDo/edit?gid=0#gid=0">
-        <span class="label">Salle d'entraînement — C48</span>
+        <span class="txt">
+          <span class="label">Salle d'entraînement C48</span>
+          <span class="sub">Formulaire virtuel</span>
+        </span>
         <span class="arrow" aria-hidden="true">›</span>
       </a>
     </div>
