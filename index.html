@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SSI Gaspé — Accès rapide</title>
+<meta name="description" content="Formulaires et accès rapides du Service de sécurité incendie de la Ville de Gaspé.">
+<meta name="theme-color" content="#0E1832">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E1832;
+    --shield:#17244C;
+    --red:#CE2338;
+    --btn:#F4F5F7;
+    --btn-hover:#FFFFFF;
+    --btn-ink:#0E1832;
+    --muted:#8FA0C4;
+    --line:rgba(255,255,255,.15);
+
+    --display:"Saira Condensed","Arial Narrow",system-ui,sans-serif;
+    --body:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",monospace;
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:#fff;
+    font-family:var(--body);
+    line-height:1.4;
+    -webkit-font-smoothing:antialiased;
+    padding:
+      calc(22px + env(safe-area-inset-top))
+      calc(18px + env(safe-area-inset-right))
+      calc(24px + env(safe-area-inset-bottom))
+      calc(18px + env(safe-area-inset-left));
+  }
+  .wrap{max-width:460px;margin:0 auto}
+
+  /* ---------- Logo ---------- */
+  .logo{display:block;width:100%;max-width:330px;height:auto;margin:0 auto}
+
+  /* ---------- Bande chevron (signature) ---------- */
+  .chevron{
+    height:9px;margin:18px 0 22px;
+    background:repeating-linear-gradient(115deg,
+      var(--red) 0 12px,
+      #fff 12px 24px);
+  }
+
+  /* ---------- Étiquettes de section ---------- */
+  .section-label{
+    display:flex;align-items:center;gap:10px;
+    font-family:var(--display);font-weight:600;font-size:12px;
+    letter-spacing:.24em;text-indent:.24em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 10px;
+  }
+  .section-label::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  /* ---------- Boutons-liens ---------- */
+  .stack{display:flex;flex-direction:column;gap:8px}
+
+  .btn-link{
+    display:flex;align-items:center;gap:12px;
+    min-height:54px;padding:10px 14px;
+    background:var(--btn);color:var(--btn-ink);
+    border-left:5px solid var(--red);
+    text-decoration:none;
+    transition:background .15s ease,transform .15s ease;
+  }
+  .btn-link span.label{
+    flex:1;
+    font-family:var(--display);font-weight:700;
+    font-size:19px;line-height:1.1;letter-spacing:.015em;
+    text-transform:uppercase;
+  }
+  .btn-link span.arrow{
+    font-family:var(--display);font-size:24px;line-height:1;
+    color:var(--red);flex:none;
+  }
+  .btn-link:hover,.btn-link:focus-visible{background:var(--btn-hover);transform:translateX(3px)}
+  .btn-link:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .btn-link:active{transform:translateX(1px)}
+
+  /* ---------- Wifi ---------- */
+  .block{
+    background:var(--shield);
+    border:1px solid var(--line);
+    padding:4px 14px 12px;
+  }
+  dl{margin:0}
+  .row{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:9px 0;border-bottom:1px solid var(--line);
+  }
+  .row:last-child{border-bottom:0}
+  .row dt{
+    font-family:var(--display);font-weight:500;font-size:12px;
+    letter-spacing:.18em;text-indent:.18em;text-transform:uppercase;color:var(--muted);
+  }
+  .row dd{margin:0;font-family:var(--mono);font-weight:600;font-size:14px;word-break:break-all;text-align:right}
+
+  .copy{
+    width:100%;margin-top:10px;min-height:42px;
+    display:flex;align-items:center;justify-content:center;
+    background:transparent;color:#fff;border:1px solid var(--line);
+    font-family:var(--display);font-weight:600;font-size:13px;
+    letter-spacing:.18em;text-indent:.18em;text-transform:uppercase;
+    cursor:pointer;transition:border-color .15s ease,color .15s ease;
+  }
+  .copy:hover{border-color:#fff}
+  .copy:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .copy[data-state="ok"]{border-color:var(--red);color:#fff;background:var(--red)}
+
+  /* ---------- Coordonnées ---------- */
+  .contact{margin-top:8px}
+  .urgence{
+    display:flex;align-items:baseline;justify-content:space-between;
+    background:var(--red);color:#fff;padding:9px 14px;
+  }
+  .urgence b{
+    font-family:var(--display);font-weight:700;font-size:13px;
+    letter-spacing:.2em;text-transform:uppercase;
+  }
+  .urgence span{font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:.06em;line-height:1}
+
+  .contact-body{padding:12px 14px;border:1px solid var(--line);border-top:0;font-size:13px}
+  .contact-body p{margin:0 0 6px;color:var(--muted);line-height:1.45}
+  .contact-body p:last-child{margin-bottom:0}
+  .contact-body a{color:#fff;text-decoration:none;border-bottom:1px solid var(--red)}
+  .contact-body a:hover{background:var(--red)}
+  .contact-body a:focus-visible{outline:3px solid #fff;outline-offset:2px}
+  .contact-body .name{
+    color:#fff;font-family:var(--display);font-weight:600;font-size:14px;
+    letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;
+  }
+
+  .spacer{height:18px}
+
+  footer{margin-top:16px;text-align:center}
+  footer p{margin:0;font-family:var(--mono);font-size:11px;color:var(--muted);opacity:.65}
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important}
+    .btn-link:hover,.btn-link:focus-visible,.btn-link:active{transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img class="logo" src="logo.png" alt="Service de sécurité incendie — Ville de Gaspé">
+  </header>
+
+  <div class="chevron" aria-hidden="true"></div>
+
+  <main>
+    <h2 class="section-label">Formulaires</h2>
+
+    <div class="stack">
+      <a class="btn-link" target="_blank" rel="noopener noreferrer"
+         href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=Su-NZDGIc0iq2HfQsywVUgtgrVx8Qu9Gm1NqnRPUzthUOFdGMEVHWFdPVEo1REw0UU1UMUpEUzc0VS4u&amp;origin=QRCode">
+        <span class="label">Inspection des airpacks</span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </a>
+
+      <a class="btn-link" target="_blank" rel="noopener noreferrer"
+         href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=Su-NZDGIc0iq2HfQsywVUgtgrVx8Qu9Gm1NqnRPUzthUMVc3N0U1OFNXTDZHTVZVRFlSRFNYSzAzRy4u&amp;origin=QRCode">
+        <span class="label">Inventaire airpacks — camions</span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </a>
+
+      <a class="btn-link" target="_blank" rel="noopener noreferrer"
+         href="https://docs.google.com/spreadsheets/d/1UY77Xt6zwJ8-MNuP9Ts1axLw2jRJPkyU7axRVP1grDo/edit?gid=0#gid=0">
+        <span class="label">Salle d'entraînement — C48</span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </a>
+    </div>
+
+    <div class="spacer"></div>
+
+    <h2 class="section-label">Réseau sans fil</h2>
+    <div class="block">
+      <dl>
+        <div class="row"><dt>Réseau</dt><dd>SSI</dd></div>
+        <div class="row"><dt>Sécurité</dt><dd>WPA</dd></div>
+        <div class="row"><dt>Clé</dt><dd id="wifi-key">Incendiegaspe2026</dd></div>
+      </dl>
+      <button class="copy" id="copy-btn" type="button">Copier la clé</button>
+    </div>
+
+    <div class="spacer"></div>
+
+    <h2 class="section-label">Coordonnées</h2>
+    <div class="contact">
+      <div class="urgence"><b>Urgence</b><span>911</span></div>
+      <div class="contact-body">
+        <p class="name">Service de sécurité incendie</p>
+        <p>148, boul. de Gaspé<br>Gaspé (Québec) G4X 1A9</p>
+        <p><a href="tel:+14183682104,8551">418 368-2104, poste 8551</a></p>
+        <p><a href="mailto:ssi@ville.gaspe.qc.ca">ssi@ville.gaspe.qc.ca</a></p>
+        <p><a href="https://incendiegaspe.com" target="_blank" rel="noopener noreferrer">incendiegaspe.com</a></p>
+      </div>
+    </div>
+  </main>
+
+  <footer><p>ssig.app</p></footer>
+
+</div>
+
+<script>
+(function(){
+  var btn = document.getElementById('copy-btn');
+  var key = document.getElementById('wifi-key').textContent.trim();
+  var timer;
+
+  function flash(msg, ok){
+    btn.textContent = msg;
+    if (ok) btn.setAttribute('data-state','ok'); else btn.removeAttribute('data-state');
+    clearTimeout(timer);
+    timer = setTimeout(function(){
+      btn.textContent = 'Copier la clé';
+      btn.removeAttribute('data-state');
+    }, 2200);
+  }
+
+  function fallback(){
+    var ta = document.createElement('textarea');
+    ta.value = key;
+    ta.setAttribute('readonly','');
+    ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok=false;
+    try{ ok = document.execCommand('copy'); }catch(e){ ok=false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  btn.addEventListener('click', function(){
+    if (navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(key)
+        .then(function(){ flash('Clé copiée', true); })
+        .catch(function(){ var r=fallback(); flash(r?'Clé copiée':'Copie impossible — noter la clé', r); });
+    } else {
+      var r=fallback();
+      flash(r?'Clé copiée':'Copie impossible — noter la clé', r);
+    }
+  });
+})();
+</script>
+</body>
+</html>
