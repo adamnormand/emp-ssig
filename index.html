@@ -193,6 +193,11 @@
   .codes .n{background:#FDEBD5}
   #list-pri .r{background:#DE9690;color:#000}
   #list-pri .k{width:62px}
+  .codes.tel a{display:flex;flex:1;color:inherit;text-decoration:none}
+  .codes.tel .k{font-size:12.5px;text-transform:uppercase;letter-spacing:.02em}
+  .codes.tel .t{font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
+  .codes.tel small{display:block;font-size:13px;font-weight:500}
+  .codes.tel .t::after{content:"☎";margin-left:auto;padding-left:10px;font-size:20px}
   .no-match{display:none;margin:4px 0 0;text-align:center;font-family:var(--display);font-size:13px;
     letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 
@@ -280,6 +285,23 @@
       <div class="ref-body">
         <a class="pdf" href="pdf/codes-pri-ssig.pdf" download>Télécharger le PDF</a>
         <ul class="codes" id="list-pri"></ul>
+      </div>
+    </details>
+
+    <details class="ref" id="ref-caureq" open>
+      <summary>
+        <span class="txt">
+          <span class="label">CAUREQ</span>
+          <span class="sub">Centrale Rimouski · numéros</span>
+        </span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </summary>
+      <div class="ref-body">
+        <ul class="codes tel">
+          <li class="c g"><a href="tel:+18885590911"><span class="k">Centrale</span><span class="t"><span>1 888 559-0911<small>Sans frais</small></span></span></a></li>
+          <li class="c g"><a href="tel:+14187245882"><span class="k">Centrale</span><span class="t"><span>418 724-5882<small>Ligne régulière</small></span></span></a></li>
+          <li class="c o"><a href="tel:+14187240171"><span class="k">Sat.</span><span class="t"><span>418 724-0171<small>Appel téléphones satellites</small></span></span></a></li>
+        </ul>
       </div>
     </details>
 
