@@ -150,6 +150,51 @@
     letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;
   }
 
+
+  /* ---------- Codes (10 et PRI) ---------- */
+  .search{width:100%;min-height:46px;margin:0 0 8px;padding:10px 14px;font:500 17px var(--body);
+    background:var(--shield);color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:0;outline:none;
+    -webkit-appearance:none;appearance:none}
+  .search::placeholder{color:var(--muted)}
+  .search:focus{border-color:#fff}
+  .ref{margin-bottom:8px}
+  .ref summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;
+    min-height:54px;padding:10px 14px;background:var(--btn);color:var(--btn-ink);border-left:5px solid var(--red)}
+  .ref summary::-webkit-details-marker{display:none}
+  .ref summary .txt{flex:1;min-width:0}
+  .ref summary .label{display:block;font-family:var(--display);font-weight:700;font-size:19px;line-height:1.1;
+    letter-spacing:.015em;text-transform:uppercase}
+  .ref summary .sub{display:block;margin-top:3px;font-family:var(--display);font-weight:600;font-size:9px;
+    line-height:1;letter-spacing:.2em;text-transform:uppercase;color:#5A6478}
+  .ref summary .arrow{font-family:var(--display);font-size:24px;line-height:1;color:var(--red);flex:none;
+    transition:transform .15s ease}
+  .ref[open] summary .arrow{transform:rotate(90deg)}
+  .ref summary:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .ref-body{padding:8px 0 4px}
+  .pdf{display:flex;align-items:center;justify-content:center;min-height:42px;margin-bottom:8px;
+    color:#fff;text-decoration:none;border:1px solid var(--line);
+    font-family:var(--display);font-weight:600;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+  .pdf::before{content:"↓";margin-right:8px;color:var(--red);font-size:16px}
+  .pdf:hover{border-color:#fff}
+  .pdf:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .codes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+  .codes .grp{font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--muted);padding:8px 0 2px}
+  .codes .c{display:flex;align-items:stretch;min-height:46px;background:var(--btn);color:var(--btn-ink);border-left:5px solid}
+  .codes .k{flex:none;width:84px;display:flex;align-items:center;padding-left:10px;
+    font-family:var(--mono);font-weight:600;font-size:16px;font-variant-numeric:tabular-nums}
+  .codes .k.word{font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+  .codes .t{flex:1;display:flex;align-items:center;padding:8px 12px 8px 0;font-size:15px;line-height:1.3}
+  .codes .t b{font-weight:600}
+  .codes .o{border-color:#E8890C}.codes .o .k{color:#B5650A}
+  .codes .g{border-color:#2F9E44}.codes .g .k{color:#23803A}
+  .codes .b{border-color:#5B7DA8}.codes .b .k{color:#46658F}
+  .codes .n{border-color:#E9B98A}.codes .n .k{color:#8A5A28}
+  .codes .r{border-color:var(--red);background:#FCE9EC}.codes .r .k{color:var(--red)}
+  #list-10 .r .t{font-weight:600}
+  .no-match{display:none;margin:4px 0 0;text-align:center;font-family:var(--display);font-size:13px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
   .spacer{height:18px}
 
   footer{margin-top:16px;text-align:center}
@@ -204,25 +249,40 @@
 
     <div class="spacer"></div>
 
-    <h2 class="section-label">Références</h2>
+    <h2 class="section-label">Codes</h2>
 
-    <div class="stack">
-      <a class="btn-link" href="codes-10/">
+    <input class="search" id="code-q" type="search" inputmode="search" autocomplete="off"
+           placeholder="Rechercher un code ou un mot…" aria-label="Rechercher dans les codes">
+
+    <details class="ref" id="ref-10">
+      <summary>
         <span class="txt">
           <span class="label">Codes 10</span>
           <span class="sub">Codes radio · mise à jour juillet 2026</span>
         </span>
         <span class="arrow" aria-hidden="true">›</span>
-      </a>
+      </summary>
+      <div class="ref-body">
+        <a class="pdf" href="pdf/codes-10-ssig.pdf" download>Télécharger le PDF</a>
+        <ul class="codes" id="list-10"></ul>
+      </div>
+    </details>
 
-      <a class="btn-link" href="codes-pri/">
+    <details class="ref" id="ref-pri">
+      <summary>
         <span class="txt">
           <span class="label">Codes PRI</span>
           <span class="sub">Nature de l'appel</span>
         </span>
         <span class="arrow" aria-hidden="true">›</span>
-      </a>
-    </div>
+      </summary>
+      <div class="ref-body">
+        <a class="pdf" href="pdf/codes-pri-ssig.pdf" download>Télécharger le PDF</a>
+        <ul class="codes" id="list-pri"></ul>
+      </div>
+    </details>
+
+    <p class="no-match" id="code-empty">Aucun code trouvé</p>
 
     <div class="spacer"></div>
 
@@ -293,6 +353,46 @@
       var r=fallback();
       flash(r?'Clé copiée':'Copie impossible — noter la clé', r);
     }
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var C10 = [["10-1", "À l’écoute", "o"], ["10-2", "Répétez le message", "o"], ["10-3", "Affectation / Message annulé (préciser)", "o"], ["10-4", "Message reçu", "o"], ["10-5", "Disponible", "g"], ["10-07", "Intervention nécessaire", "g"], ["10-08", "Aggravation improbable, ressources suffisantes", "g"], ["10-09", "Aggravation probable, ressources suffisantes", "g"], ["10-10", "Maître de la situation", "g"], ["10-11", "Force de frappe atteinte", "g"], ["10-12", "Transmettez la 2<sup>e</sup> alerte", "g"], ["10-13", "Transmettez la 3<sup>e</sup> alerte", "g"], ["10-14", "Transmettez la 4<sup>e</sup> alerte", "g"], ["10-15", "Transmettez la 5<sup>e</sup> alerte", "g"], ["10-16", "En route pour l’appel", "g"], ["10-17", "Arrivé sur les lieux", "g"], ["10-18", "En reconnaissance", "g"], ["10-19", "Fausse alerte", "g"], ["10-20", "Donnez votre position", "o"], ["10-21", "Donnez l’emplacement de l’intervention", "o"], ["10-22", "Service non requis", "o"], ["10-23", "Communiquez par téléphone avec…", "o"], ["10-24", "Avez-vous capté le message?", "o"], ["10-25", "Avisez le directeur", "o"], ["10-27", "Arrivé auprès de la victime", "g"], ["10-28", "Responsable du bâtiment", "b"], ["10-30", "Agent des mesures préventives (TPI)", "b"], ["10-31", "Environnement Québec", "b"], ["10-33", "Travaux publics", "b"], ["10-34", "Service ambulancier", "b"], ["10-35", "Service de police *code 60", "b"], ["10-36", "Hydro-Québec", "b"], ["10-37", "Compagnie de gaz", "b"], ["10-38", "Entreprise de remorquage", "b"], ["10-39", "Demandons test radio", "o"], ["10-40", "Provenance de l’appel?", "o"], ["10-41", "Présence d’un élément dangereux", "r"], ["10-42", "Croix-Rouge", "b"], ["10-43", "Compagnie ferroviaire", "b"], ["10-44", "Présence de personnes à mobilité réduite", "b"], ["10-45", "MAPAQ", "b"], ["10-46", "SOPFEU", "b"], ["10-47", "Garde côtière", "b"], ["10-49", "Unité indisponible", "g"], ["10-50", "Libérez les ondes", "b"], ["10-51", "Syntonisez une autre fréquence d’opération", "b"], ["10-53", "Donnez les infos de l’appel", "g"], ["10-54", "Donnez les infos minimales de l’appel", "g"], ["10-61", "Permission de communiquer par radio-PATCH", "o"], ["10-70", "Sauvetage nécessaire", "g"], ["10-75", "Bâtiment à risques particuliers", "b"], ["10-80", "Bâtiment vacant", "b"], ["10-90", "Intervention terminée", "g"], ["10-91", "Mesures d’urgence (Avis aux partenaires)", "g"], ["10-99", "Manœuvres de réanimation en cours", "b"], ["10-100", "N’utilisez pas sirène ni clignotants (Mode B)", "o"], ["10-101", "N’utilisez aucun radio-émetteur, cellulaire, téléavertisseur, ordinateur véhiculaire dans le périmètre de sécurité", "r"], ["Code 60", "Demandons la police sur les lieux pour une personne suspecte ou récalcitrante (*10-35)", "r"], ["Code rouge", "Retrait prioritaire urgent (transmis par le SSI)", "r"]];
+  var CPRI = [["100", "<b>Système d’alarme</b>", ""], ["101", "Alarme <b>monoxyde</b> de carbone (CO) / Gaz", ""], ["102", "Vérification d’alarme", ""], ["110", "<b>Feu de bâtiment</b>", "r"], ["111", "Feu de <b>cheminée</b>", "r"], ["112", "Vérification intérieure", "r"], ["120", "<b>Feu extérieur</b>", ""], ["121", "Feu de <b>forêt / Tourbière</b>", ""], ["122", "Vérification extérieure", ""], ["123", "<b>Danger électrique</b> extérieur", ""], ["130", "<b>Feu de véhicule</b>", "r"], ["131", "Feu de véhicule avec <b>matière dangereuse</b>", "r"], ["200", "Sauvetage <b>nautique</b>", ""], ["201", "Sauvetage <b>terrestre</b>", ""], ["202", "Sauvetage en <b>hauteur / espace clos</b>", ""], ["203", "Sauvetage de <b>personne(s) coincée(s)</b>", ""], ["204", "Investigation / Autre(s) sauvetage(s)", ""], ["300", "<b>Accident de la route</b> (coincé)", "r"], ["301", "<b>Accident de la route</b> (inconnu si coincé)", "r"], ["302", "<b>Accident de la route</b>", "r"], ["400", "Aide à la population", ""], ["401", "Entraide", ""], ["402", "Assistance", ""], ["500", "Incendie / Incident d’<b>aéronef</b>", "r"], ["501", "Incendie / Incident <b>ferroviaire</b>", "r"], ["502", "Incendie / Incident maritime", "r"], ["503", "Incendie / Incident de <b>matière dangereuse</b>", "r"]];
+  function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/<[^>]+>/g,'');}
+  function row(c,t,k){
+    return '<li class="c '+k+'" data-s="'+norm(c+' '+c.replace(/-0/,'-')+' '+t)+'"><span class="k'+(/^Code/.test(c)?' word':'')+'">'+c+'</span><span class="t"><span>'+t+'</span></span></li>';
+  }
+  document.getElementById('list-10').innerHTML = C10.map(function(d){return row(d[0],d[1],d[2]);}).join('');
+  var h='', serie=null;
+  CPRI.forEach(function(d){
+    if(d[0].charAt(0)!==serie){ serie=d[0].charAt(0); h+='<li class="grp" data-grp="'+serie+'">Série '+serie+'00</li>'; }
+    h+=row(d[0],d[1],d[2]||'n');
+  });
+  document.getElementById('list-pri').innerHTML = h;
+
+  var q=document.getElementById('code-q'), empty=document.getElementById('code-empty');
+  var refs=[document.getElementById('ref-10'), document.getElementById('ref-pri')];
+  q.addEventListener('input', function(){
+    var s=norm(q.value.trim()), total=0;
+    refs.forEach(function(ref){
+      var n=0, items=ref.querySelectorAll('li');
+      Array.prototype.forEach.call(items,function(li){
+        if(li.classList.contains('grp')) return;
+        var ok=!s||li.dataset.s.indexOf(s)>-1; li.style.display=ok?'':'none'; if(ok) n++;
+      });
+      Array.prototype.forEach.call(ref.querySelectorAll('li.grp'),function(g){
+        var vis=false, el=g.nextElementSibling;
+        while(el && !el.classList.contains('grp')){ if(el.style.display!=='none'){vis=true;break;} el=el.nextElementSibling; }
+        g.style.display=vis?'':'none';
+      });
+      ref.style.display = (!s||n) ? '' : 'none';
+      if(s && n) ref.open = true;
+      total+=n;
+    });
+    empty.style.display = (s && !total) ? 'block' : 'none';
   });
 })();
 </script>
